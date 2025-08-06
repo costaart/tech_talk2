@@ -1,9 +1,8 @@
 <?php
 
-// Decorator
-namespace App\Services;
+namespace App\Services\Decorators;
 
-class MessageFormatter
+class PlainFormatter implements FormatterInterface
 {
     public function format(string $message): string
     {

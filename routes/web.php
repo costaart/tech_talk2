@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Services\ConfigService;
-use App\Services\UppercaseDecorator;
+use App\Services\Decorators\PlainFormatter;
+use App\Services\Decorators\UppercaseDecorator;
 use App\Models\Pedido;
 use App\Events\PedidoCriado;
 
@@ -18,13 +19,15 @@ Route::get('/singleton', function () {
     $a->label = 'primeira alteração';
     $b->label .= ' + segunda alteração';
 
-    return "A: {$a->label} | B: {$b->label}";
+    return "A: {$a->label} <br> <br>  B: {$b->label}";
 });
 
 // Decorator: Estrutural
 Route::get('/decorator', function () {
-    $formatter = new UppercaseDecorator();
-    return $formatter->format("mensagem alterada com sucesso");
+    $plain = new PlainFormatter();
+    $formatter = new UppercaseDecorator($plain);
+
+    return $formatter->format("mensagem exibida com sucesso");
 });
 
 // Observer: Comportamental
